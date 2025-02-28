@@ -223,5 +223,5 @@ jobs:
         with:
           path: .
       - name: archive report
-        if: ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'gcc' && matrix.build_type == 'Debug'}}
+        if: always() && ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'gcc' && matrix.build_type == 'Debug'}}
         run: cat ${{ steps.scan.outputs.sarif }}
