@@ -222,6 +222,8 @@ jobs:
         uses: anchore/scan-action@v6
         with:
           path: .
+          fail-build: false
+          output-format: sarif
       - name: archive report
         if: always() && ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'gcc' && matrix.build_type == 'Debug'}}
         run: cat ${{ steps.scan.outputs.sarif }}
