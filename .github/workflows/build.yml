@@ -217,6 +217,7 @@ jobs:
           cd build
           ctest -V
       - name: Create SBOM
+        if: ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'gcc' && matrix.build_type == 'Debug'}}
         uses: anchore/sbom-action@v0
         with:
           path: ./build
