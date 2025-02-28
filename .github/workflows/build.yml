@@ -220,7 +220,7 @@ jobs:
         if: ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'gcc' && matrix.build_type == 'Debug'}}
         uses: anchore/sbom-action@v0
         with:
-          path: ./build
+          path: ./
           format: spdx-json
           output-file: "${{ github.event.repository.name }}-sbom.spdx.json"
       - name: Run Scan
