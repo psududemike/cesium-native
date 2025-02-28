@@ -218,7 +218,10 @@ jobs:
           ctest -V
       - name: Run Scan
         if: ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'gcc' && matrix.build_type == 'Debug'}}
+        id: scan
         uses: anchore/scan-action@v6
         with:
           path: .
-        
+      - name: archive report
+        if: ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'gcc' && matrix.build_type == 'Debug'}}
+        run: cat ${{ steps.scan.outputs.sarif }}
