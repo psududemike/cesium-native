@@ -216,12 +216,18 @@ jobs:
         run: |
           cd build
           ctest -V
+      - name: Create SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: ./build
+          format: spdx-json
+          output-file: "${{ github.event.repository.name }}-sbom.spdx.json"
       - name: Run Scan
         if: ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'gcc' && matrix.build_type == 'Debug'}}
         id: scan
         uses: anchore/scan-action@v6
         with:
-          path: .
+          sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
           fail-build: false
           output-format: sarif
       - name: archive report
