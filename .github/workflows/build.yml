@@ -216,3 +216,9 @@ jobs:
         run: |
           cd build
           ctest -V
+      - name: Run Scan
+        if: ${{matrix.platform == 'ubuntu-22.04' && matrix.compiler == 'clang' && matrix.build_type == 'Debug'}}
+        uses: anchore/scan-action@v6
+        with:
+          path: .
+        
